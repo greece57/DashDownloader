@@ -12,13 +12,16 @@ public class FileCreator {
     // TODO Write downloadedSegment to File with fileName
     String outputName = "output.mp4";
     FileOutputStream fos = new FileOutputStream(outputName);
+    long transferedByte = 0;
+    
     for (int i = 0; i < downloadedSegments; i++) {
       FileInputStream in = new FileInputStream("segment_" + i + ".mp4");
       ReadableByteChannel rbc = Channels.newChannel(in);
-      fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+      transferedByte += fos.getChannel().transferFrom(rbc, transferedByte, Long.MAX_VALUE);
       in.close();
       new File("segment_" + i + ".mp4").delete();
     }
+    
     fos.close();
   }
 

@@ -25,6 +25,8 @@ public class DashDownloader {
     sg.downloadSegment(info.getAudioSegment(), false);
     
     FileCreator.combineDownloadedSegments(sg.getDownloadedSegments());
+    
+    System.out.println("Finished");
   }
 
 }

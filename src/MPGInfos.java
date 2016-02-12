@@ -46,12 +46,16 @@ public class MPGInfos {
     Segment lowQuali = segmentsLowQuali.poll();
     
     if (l > bandwidthTopQuali) { 
+      System.out.println("Downloading Segment in Top Quality");
       return topQuali;
     } else if (l > bandwidthHighQuali) {
+      System.out.println("Downloading Segment in High Quality");
       return highQuali;
     } else if (l > bandwidthMediumQuali) {
+      System.out.println("Downloading Segment in Medium Quality");
       return mediumQuali;
     } else {
+      System.out.println("Downloading Segment in Low Quality");
       return lowQuali;
     }        
   }

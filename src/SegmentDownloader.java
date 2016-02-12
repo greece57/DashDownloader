@@ -20,6 +20,8 @@ public class SegmentDownloader {
     long end = System.nanoTime();
     long time = end-start;
     
+    System.out.println("Current Bandwidth: " + time);
+    
     return time;
   }
 
@@ -28,12 +30,14 @@ public class SegmentDownloader {
     ReadableByteChannel rbc = Channels.newChannel(website.openStream());
     String outputName = "";
     if (video)
+    {
       outputName = "segment_" + downloadedSegments + ".mp4";
+      downloadedSegments++;      
+    }
     else
       outputName = "audio.mp4";
 
     FileOutputStream fos = new FileOutputStream(outputName);
-    downloadedSegments++;
     fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
     fos.close();
   }

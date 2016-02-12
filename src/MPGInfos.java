@@ -40,14 +40,19 @@ public class MPGInfos {
   }
   
   public Segment readNextSegment(long l) {
+    Segment topQuali = segmentsTopQuali.poll();
+    Segment highQuali = segmentsHighQuali.poll();
+    Segment mediumQuali = segmentsMediumQuali.poll();
+    Segment lowQuali = segmentsLowQuali.poll();
+    
     if (l > bandwidthTopQuali) { 
-      return segmentsTopQuali.poll();
+      return topQuali;
     } else if (l > bandwidthHighQuali) {
-      return segmentsHighQuali.poll();
+      return highQuali;
     } else if (l > bandwidthMediumQuali) {
-      return segmentsMediumQuali.poll();
+      return mediumQuali;
     } else {
-      return segmentsLowQuali.poll();
+      return lowQuali;
     }        
   }
 }

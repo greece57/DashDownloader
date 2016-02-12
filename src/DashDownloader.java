@@ -16,7 +16,7 @@ public class DashDownloader {
     
     SegmentDownloader sg = new SegmentDownloader();
     
-    Segment nextSegment = info.readNextSegment(0);//sg.getCurrentBandwidth());
+    Segment nextSegment = info.readNextSegment(sg.getCurrentBandwidth());
 
     while (nextSegment != null) {
       sg.downloadSegment(nextSegment, true);

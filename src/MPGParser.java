@@ -73,7 +73,12 @@ public class MPGParser {
     }
     
     // Find Audio Representation Node
-    audioRepresentation = adaptionSets.get(1).getFirstChild();
+    nl = adaptionSets.get(1).getChildNodes();
+    for (int i = 0; i < nl.getLength(); i++) {
+      if (nl.item(i).getNodeName().equals("Representation")){
+        audioRepresentation = nl.item(i);
+      }
+    }
     
     // set Bandwiths and URLs
     int bandwiths[] = new int[4];
@@ -88,11 +93,11 @@ public class MPGParser {
       }
     }
     
-    info.setMinimumBandwidths(bandwiths[0], bandwiths[1], bandwiths[2]);
+    info.setMinimumBandwidths(bandwiths[3], bandwiths[2], bandwiths[1]);
      
     //For each Segment Insert the URL to the 4 Quality Segments
     // since only 1 Segment...
-    info.insertNewSegments(baseAddress+baseUrls[0], baseAddress+baseUrls[1], baseAddress+baseUrls[2], baseAddress+baseUrls[3]);
+    info.insertNewSegments(baseAddress+baseUrls[3], baseAddress+baseUrls[2], baseAddress+baseUrls[1], baseAddress+baseUrls[0]);
     
     // Set AudioURL
     String audioUrl = "";
@@ -103,7 +108,7 @@ public class MPGParser {
       }
     }
     
-    info.setAudioSegment(audioUrl);
+    info.setAudioSegment(baseAddress+audioUrl);
     
     return info;
   }

@@ -8,6 +8,8 @@ public class MPGInfos {
   private Queue<Segment> segmentsMediumQuali = new LinkedList<Segment>();
   private Queue<Segment> segmentsLowQuali = new LinkedList<Segment>();
   
+  private Segment audioSegment = null;
+  
   private int bandwidthTopQuali;
   private int bandwidthHighQuali;
   private int bandwidthMediumQuali;
@@ -29,12 +31,20 @@ public class MPGInfos {
     segmentsLowQuali.add(new Segment(lowQuali));
   }
   
-  public Segment readNextSegment(int bandwidth) {
-    if (bandwidth > bandwidthTopQuali) { 
+  public void setAudioSegment(String audioUrl) {
+    audioSegment = new Segment(audioUrl);
+  }
+  
+  public Segment getAudioSegment() {
+    return audioSegment;
+  }
+  
+  public Segment readNextSegment(long l) {
+    if (l > bandwidthTopQuali) { 
       return segmentsTopQuali.poll();
-    } else if (bandwidth > bandwidthHighQuali) {
+    } else if (l > bandwidthHighQuali) {
       return segmentsHighQuali.poll();
-    } else if (bandwidth > bandwidthMediumQuali) {
+    } else if (l > bandwidthMediumQuali) {
       return segmentsMediumQuali.poll();
     } else {
       return segmentsLowQuali.poll();
